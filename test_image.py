@@ -1,8 +1,11 @@
 import cv2
+import sys
 from Source.LaneDetector import LaneDetector
 
 if __name__ == "__main__":
     filepath = r"Resources/images/lane.jpg"
+    if len(sys.argv) > 1:
+        filepath = sys.argv[1]
     image = cv2.imread(filepath)
     LD = LaneDetector(pipeline="pipeline.json", controls=True, controls_resolution=(700, 800))
     while True:

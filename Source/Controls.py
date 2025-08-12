@@ -1,4 +1,5 @@
 import json
+
 import dearpygui.dearpygui as dpg
 import threading
 
@@ -10,6 +11,7 @@ class Controls:
         self.parameters = self._extract_parameters()
         self.cur_values = {}  # Current slider values (int only)
         self.cur_op = {k: True for k in self.cur_pipeline.keys()}
+        self.shutdown = False
         self._setup_controls()
 
     def _extract_parameters(self) -> dict:
@@ -66,12 +68,16 @@ class Controls:
     def get_ops(self):
         return self.cur_op
 
+    def _shutdown(self):
+        self.shutdown = True
+
     def display_controls(self):
         def gui_thread():
             dpg.destroy_context()
             dpg.create_context()
             self._setup_controls()
             dpg.create_viewport(title=self.window_name, width=self.window_width, height=self.window_height)
+            dpg.set_exit_callback(self._shutdown)
             dpg.setup_dearpygui()
             dpg.show_viewport()
             dpg.start_dearpygui()

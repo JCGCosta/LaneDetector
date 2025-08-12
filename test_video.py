@@ -1,11 +1,13 @@
 import cv2
 from Source.LaneDetector import LaneDetector
 from Source.Utils import get_video_resolution
-import time
+import time, sys
 
 filepath = r"Resources/videos/test2.mp4"
+if len(sys.argv) > 1:
+    filepath = sys.argv[1]
 cap = cv2.VideoCapture(filepath)
-LD = LaneDetector("pipeline.json", controls=True)
+LD = LaneDetector("pipeline.json", controls=True, controls_resolution=(650, 785))
 #LD.setup_record(get_video_resolution(cap), output_path=f'{filepath.split(".")[0]}_output.avi', record_fps=60)
 
 while cap.isOpened():

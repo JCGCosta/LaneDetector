@@ -1,3 +1,5 @@
+import sys
+
 import cv2
 import json
 
@@ -42,6 +44,8 @@ class LaneDetector:
 
     def frame_processor(self, image: cv2.Mat, frame_skip: int = 0, alpha: float = 1.0, beta: float = 0.5):
         cur_image = np.copy(image)
+        if self._controls.shutdown:
+            sys.exit(0)
         if self.FRAME_COUNTER == frame_skip:
             if self.HAS_CONTROLS:
                 self.update_parameters(new_parameters=self._controls.get_values())
