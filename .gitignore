@@ -1,3 +1,4 @@
 .idea/
 pipeline.json
 .gitattributes
+.venv/
