@@ -132,8 +132,8 @@ cap.release()
 cv2.destroyAllWindows()
 ```
 
-### Step 3: Results
+### Step 8: Results
 
-https://github.com/JCGCosta/RealTimeCalibrationLaneDetection/assets/51680369/e55424ea-66c4-4918-8cbe-a3c2f7244c2f
+![Lane Detection Demonstration](https://github.com/user-attachments/assets/363ac649-8141-4ddd-96d6-7e1977af5504)
 
 © Julio César Guimarães Costa 2023. All rights reserved.
