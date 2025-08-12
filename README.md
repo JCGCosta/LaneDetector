@@ -64,6 +64,7 @@ pip install -r requirements.txt
 
 - Before running make sure you have the `pipeline_sample.json` file configured with the correct path of your python file from your computer.
 - As a sample the ImageProcessing folder inside Source already have a full pipeline with 5 operations for the Lane Detection.
+- **ATTENTION**: Also, please change in the three testing.py files the `pipeline.json` to `pipeline_sample.json` in the LaneDetector class instantiation, so it will use your pipeline file.
 
 ### Step 6: Running the Application
 - To run the application, you can choose between three options:
