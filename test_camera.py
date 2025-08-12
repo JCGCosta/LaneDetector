@@ -5,7 +5,7 @@ import time
 
 cap = cv2.VideoCapture(0)
 LD = LaneDetector("pipeline.json", controls=True)
-LD.setup_record(get_video_resolution(cap), output_path=f'camera_output.avi', record_fps=60)
+#LD.setup_record(get_video_resolution(cap), output_path=f'camera_output.avi', record_fps=60)
 
 while cap.isOpened():
     start = time.time()

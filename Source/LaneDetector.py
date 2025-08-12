@@ -8,7 +8,7 @@ from Source.Controls import Controls
 from Source.PipelineSchema import is_pipeline_valid
 
 class LaneDetector:
-    def __init__(self, pipeline: str | dict, controls: bool = False):
+    def __init__(self, pipeline: str | dict, controls: bool = False, controls_resolution: tuple = (800, 700)):
         self.RECORD = None
         self.LAST_POLYGON = None
         self.RESOLUTION = None
@@ -21,7 +21,8 @@ class LaneDetector:
         if not is_pipeline_valid(self.PIPELINE):
             raise ValueError("Invalid pipeline schema.")
         if self.HAS_CONTROLS:
-            self._controls = Controls(self.PIPELINE)
+            self._controls = Controls(self.PIPELINE, controls_res=controls_resolution)
+            self._controls.display_controls()
         for op, p in self.PIPELINE.items():
             self.PIPELINE[op]["func"] = import_function_from_file(filepath=p["path"], function_name=p["function"])
 
@@ -42,9 +43,13 @@ class LaneDetector:
     def frame_processor(self, image: cv2.Mat, frame_skip: int = 0, alpha: float = 1.0, beta: float = 0.5):
         cur_image = np.copy(image)
         if self.FRAME_COUNTER == frame_skip:
-            if self.HAS_CONTROLS: self.update_parameters(new_parameters=self._controls.get_values())
+            if self.HAS_CONTROLS:
+                self.update_parameters(new_parameters=self._controls.get_values())
             self.FRAME_COUNTER = 0
             for op, param in self.PIPELINE.items():
+                if self.HAS_CONTROLS:
+                    if not self._controls.get_ops()[op]:
+                        continue
                 cur_image = param["func"](cur_image, param["parameters"])
             if cur_image.any(): self.LAST_POLYGON = np.copy(cur_image)
         else:

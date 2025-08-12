@@ -19,9 +19,9 @@ def draw_polygon(image: cv2.Mat, params: dict):
         gray,
         lines,
         color=[
-            params['polygon_color_R'][0],
+            params['polygon_color_B'][0],
             params['polygon_color_G'][0],
-            params['polygon_color_B'][0]
+            params['polygon_color_R'][0]
         ]
     )
 
